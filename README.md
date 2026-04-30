@@ -1,6 +1,6 @@
-# Simple Data Store — Go Learning Project
+# Simple Data Store - Go Learning Project
 
-This is my first go project
+This is my first go project, this goal is to put everything i have learnt into a working software. 
 
 ## What it does
 - Stores user records using structs.
