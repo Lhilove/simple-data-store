@@ -1,7 +1,6 @@
 # Simple Data Store — Go Learning Project
 
-A beginner Go project that combines the fundamentals of the language 
-into a working program.
+This is my first go project
 
 ## What it does
 - Stores user records using structs
@@ -13,5 +12,4 @@ into a working program.
 - Structs, slices, loops, conditionals, string packages
 
 ## Part of
-A structured learning path toward building SecureFlow — 
-an end-to-end secure fintech microservices platform with real-world SSDLC.
+A structured learning path toward building SecureFlow an end-to-end secure fintech microservices platform with real-world SSDLC.
