@@ -7,6 +7,7 @@ This is my first go project, this goal is to put everything i have learnt into a
 - Groups users into a slice.
 - Loops through and prints each user.
 - Filters users by email domain using string matching.
+- Every logical block became its own funtiion
 
 ## Concepts demonstrated
 - Structs, slices, loops, conditionals, string packages
