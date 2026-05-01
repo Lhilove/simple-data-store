@@ -66,8 +66,9 @@ func filterByDomain(users []user, domain string) []user {
 	}
 	return filtered
 }
-func printAppleUsers(users []user) {
-	for _, value := range users {
-		fmt.Printf("user with email %s is an apple employee\n", value.email)
-	}
-}
+
+// func printAppleUsers(users []user) {
+// 	for _, value := range users {
+// 		fmt.Printf("user with email %s is an apple employee\n", value.email)
+// 	}
+// }
