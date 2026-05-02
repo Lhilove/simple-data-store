@@ -44,6 +44,25 @@ func main() {
 	filtered := filterByDomain(users, "@apple.com")
 	fmt.Println("\nApple employees:")
 	printUsers(filtered)
+
+	updated := deleteUser(users, "jeff.alex@example.com")
+	fmt.Println("\nthe users left:")
+	printUsers(updated)
+
+	readded := updateUser(users, "jeff.alex@example.com", "jeff.okodua@example.com")
+	fmt.Println("\nthe new user has been added:")
+	printUsers(readded)
+
+	names := []string{"Jeff", "Tobi", "John", "Ajala"}
+	for _, name := range names {
+		foundUser, err := findByName(users, name)
+		if err != nil {
+			fmt.Printf("\nUser with name %s not found\n", name)
+		} else {
+			fmt.Printf("\nUser with name %s found: %s %s, Email: %s, Age: %d\n", name, foundUser.firstName, foundUser.lastName, foundUser.email, foundUser.age)
+		}
+	}
+
 }
 
 func createUsers() []user {
@@ -72,3 +91,37 @@ func filterByDomain(users []user, domain string) []user {
 // 		fmt.Printf("user with email %s is an apple employee\n", value.email)
 // 	}
 // }
+
+func deleteUser(users []user, email string) []user {
+	var updated []user
+	for _, u := range users {
+		if u.email != email {
+			updated = append(updated, u)
+		}
+	}
+	return updated
+}
+
+func updateUser(users []user, email string, newEmail string) []user {
+	var readded []user
+	for _, x := range users {
+		if x.email == email {
+			x.email = newEmail
+		}
+		readded = append(readded, x)
+	}
+	return readded
+}
+
+func findByName(users []user, name string) (user, error) {
+	var names []user
+	for _, value := range users {
+		if strings.Contains(value.firstName, name) || strings.Contains(value.lastName, name) {
+			names = append(names, value)
+		}
+	}
+	if len(names) == 0 {
+		return user{}, fmt.Errorf("user not found")
+	}
+	return names[0], nil
+}

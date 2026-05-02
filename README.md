@@ -8,9 +8,15 @@ This is my first go project, this goal is to put everything i have learnt into a
 - Loops through and prints each user.
 - Filters users by email domain using string matching.
 - Every logical block became its own funtiion
+- Creates, updates and delete users
+- Find user by name
 
 ## Concepts demonstrated
-- Structs, slices, loops, conditionals, string packages
+- Structs and slices
+- For Loops and range 
+- Conditionals
+- String packages
+- Error handling
 
 ## Part of
 A structured learning path toward building SecureFlow an end-to-end secure fintech microservices platform with real-world SSDLC.
