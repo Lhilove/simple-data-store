@@ -6,7 +6,7 @@ This is my first go project, this goal is to put everything i have learnt into a
 - Stores user records using structs.
 - Groups users into a slice.
 - Loops through and prints each user.
-- Filters users by email domain using string matching.
+- Filters users by email domain and age using string matching.
 - Every logical block became its own funtiion
 - Creates, updates and delete users
 - Find user by name
@@ -17,6 +17,7 @@ This is my first go project, this goal is to put everything i have learnt into a
 - Conditionals
 - String packages
 - Error handling
+- First class functions, anonymous functions
 
 ## Part of
 A structured learning path toward building SecureFlow an end-to-end secure fintech microservices platform with real-world SSDLC.
