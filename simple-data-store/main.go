@@ -25,7 +25,7 @@ var user2 = user{
 	firstName: "Tobi",
 	lastName:  "Alabi",
 	email:     "tobi.alabi@gmail.com",
-	age:       21,
+	age:       29,
 	password:  []string{"password001"},
 }
 
@@ -33,26 +33,49 @@ var user3 = user{
 	firstName: "John",
 	lastName:  "Sanjay",
 	email:     "john.sanjay@apple.com",
-	age:       21,
+	age:       18,
 	password:  []string{"password202"},
 }
 
 func main() {
-
+	// this is to create users and print them out
 	users := createUsers()
 	printUsers(users)
-	filtered := filterByDomain(users, "@apple.com")
+
+	// filter by domain
+	filtered := filter(users, func(u user) bool {
+		return strings.Contains(u.email, "@apple.com")
+
+	})
 	fmt.Println("\nApple employees:")
 	printUsers(filtered)
 
+	// filter by age
+	filtered = filter(users, func(u user) bool {
+		return u.age < 20
+	})
+	fmt.Println("\nUsers younger than 20:")
+	printUsers(filtered)
+
+	// filter by name (findByName already does this ones job, this is just to demostrate firstclass function)
+	// filtered = filter(users, func(u user) bool {
+	// 	return u.firstName == "Jeff"
+	// })
+	// fmt.Println("\nUsers with the first name Jeff:")
+	// printUsers(filtered)
+
+	// this is to delete user from the store
 	updated := deleteUser(users, "jeff.alex@example.com")
 	fmt.Println("\nthe users left:")
 	printUsers(updated)
+
+	// this is to update user email
 
 	readded := updateUser(users, "jeff.alex@example.com", "jeff.okodua@example.com")
 	fmt.Println("\nthe new user has been added:")
 	printUsers(readded)
 
+	// this is to find users by their first name or last name
 	names := []string{"Jeff", "Tobi", "John", "Ajala"}
 	for _, name := range names {
 		foundUser, err := findByName(users, name)
@@ -76,10 +99,12 @@ func printUsers(users []user) {
 	}
 }
 
-func filterByDomain(users []user, domain string) []user {
+// this is a firstclass function that allows you filter by name, domain or age instead of writing every filter function
+func filter(users []user, fn func(user) bool) []user {
 	var filtered []user
+	// using range instead of index loop since we do not need the postion of each slice
 	for _, value := range users {
-		if strings.Contains(value.email, domain) {
+		if fn(value) {
 			filtered = append(filtered, value)
 		}
 	}
@@ -102,6 +127,7 @@ func deleteUser(users []user, email string) []user {
 	return updated
 }
 
+// updates the email of an existing user identified by their current email
 func updateUser(users []user, email string, newEmail string) []user {
 	var readded []user
 	for _, x := range users {
@@ -113,6 +139,8 @@ func updateUser(users []user, email string, newEmail string) []user {
 	return readded
 }
 
+// returns the user if found, returns an error if not found
+// caller must check err before using the returned user
 func findByName(users []user, name string) (user, error) {
 	var names []user
 	for _, value := range users {
