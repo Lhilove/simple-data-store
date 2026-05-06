@@ -10,6 +10,7 @@ This is my first golang project, the goal is to put everything I have learnt int
 - Every logical block became its own funtiion
 - Creates, updates and delete users
 - Find user by name (using fmt.Scan(&name))
+- Input validation
 
 ## Concepts demonstrated
 - Structs and slices
@@ -20,6 +21,7 @@ This is my first golang project, the goal is to put everything I have learnt int
 - First class functions, anonymous functions
 - Pointers
 - User Input
+- Logical Operators
 
 ## Part of
 A structured learning path toward building SecureFlow an end-to-end secure fintech microservices platform with real-world SSDLC.

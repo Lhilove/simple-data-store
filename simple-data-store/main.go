@@ -37,6 +37,10 @@ var user3 = user{
 	password:  []string{"password202"},
 }
 
+// this variable is for findByName, deleteUser
+var name string
+var email string
+
 func main() {
 	// this is to create users and print them out
 	users := createUsers()
@@ -65,9 +69,14 @@ func main() {
 	// printUsers(filtered)
 
 	// this is to delete user from the store
-	updated := deleteUser(users, "jeff.alex@example.com")
-	fmt.Println("\nthe users left:")
-	printUsers(updated)
+	fmt.Println("Enter email to delete: ")
+	fmt.Scan(&email)
+	record, err := deleteUser(users, email)
+	if err != nil {
+		fmt.Printf("Invalid email format\n")
+	} else {
+		fmt.Printf("User with email %s deleted: %s %s, Email: %s, Age: %d\n", email, record.firstName, record.lastName, record.email, record.age)
+	}
 
 	// this is to update user email
 
@@ -75,20 +84,8 @@ func main() {
 	fmt.Println("\nthe new user has been added:")
 	printUsers(readded)
 
-	// this is to find users by their first name or last name
-	// names := []string{"Jeff", "Tobi", "John", "Ajala"}
-	// for _, name := range names {
-	// 	foundUser, err := findByName(users, name)
-	// 	if err != nil {
-	// 		fmt.Printf("\nUser with name %s not found\n", name)
-	// 	} else {
-	// 		fmt.Printf("\nUser with name %s found: %s %s, Email: %s, Age: %d\n", name, foundUser.firstName, foundUser.lastName, foundUser.email, foundUser.age)
-	// 	}
-	// }
-
 	// this is to demonstrate user input for name search
-	fmt.Print("Enter name to search: ")
-	var name string
+	fmt.Println("Enter name to search: ")
 	fmt.Scan(&name)
 	result, err := findByName(users, name)
 	if err != nil {
@@ -96,6 +93,7 @@ func main() {
 	} else {
 		fmt.Printf("User with name %s found: %s %s, Email: %s, Age: %d\n", name, result.firstName, result.lastName, result.email, result.age)
 	}
+
 }
 
 func createUsers() []user {
@@ -128,14 +126,21 @@ func filter(users []user, fn func(user) bool) []user {
 // 	}
 // }
 
-func deleteUser(users []user, email string) []user {
-	var updated []user
+// this is to delete user from the store, it returns the deleted user if found, otherwise it returns an error
+func deleteUser(users []user, email string) (user, error) {
+
+	//user input validation to prevent auth bypass via email manipulation.
+	isValidEmail := strings.Contains(email, "@")
+	if !isValidEmail {
+		return user{}, fmt.Errorf("invalid email format")
+	}
 	for _, u := range users {
 		if u.email != email {
-			updated = append(updated, u)
+		} else {
+			return u, nil // return the deleted user
 		}
 	}
-	return updated
+	return user{}, fmt.Errorf("user not found")
 }
 
 // updates the email of an existing user identified by their current email
@@ -169,6 +174,8 @@ func findByName(users []user, name string) (user, error) {
 			names = append(names, value)
 		}
 	}
+
+	//user input validation to verify the inputed name is not empty
 	if len(names) == 0 {
 		return user{}, fmt.Errorf("user not found")
 	}
