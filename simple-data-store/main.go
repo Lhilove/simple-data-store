@@ -58,11 +58,16 @@ func main() {
 	// this is to demonstrate user input for name search
 	fmt.Println("Enter name to search: ")
 	fmt.Scan(&name)
-	result, err := store.FindByName(users, name)
-	if err != nil {
-		fmt.Println(err)
+	if strings.TrimSpace(name) == "" {
+		fmt.Println("Please enter a valid name")
 	} else {
-		fmt.Printf("User with name %s found: %s %s, Email: %s, Age: %d\n", name, result.FirstName, result.LastName, result.Email, result.Age)
-	}
+		result, err := store.FindByName(users, name)
+		if err == nil {
 
+			fmt.Printf("User with name %s found: %s %s, Email: %s, Age: %d\n", name, result.FirstName, result.LastName, result.Email, result.Age)
+		} else {
+			fmt.Println(err)
+
+		}
+	}
 }
